@@ -38,6 +38,8 @@ typedef struct instruction_s
 } instruction_t;
 
 extern stack_t **stack;
+stack_t **stack = NULL;
+
 ssize_t custom_getline(char **lineptr, size_t *n, FILE *stream);
 
 void push(stack_t **stack, int value);
