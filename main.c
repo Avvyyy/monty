@@ -1,14 +1,13 @@
 #include <stdio.h>
 #include "monty.h"
 
-/** main - Function to imlement the monty bytecode
+/**
+ * main - Function to imlement the monty bytecode
  * @argc: Argumnent Count
  * @argv; Argumnet Vector`
  *
  * Return: Integer represeting exit status
  */
-
-stack_t **stack = NULL;
 
 int main(int argc, char *argv[])
 {
@@ -22,8 +21,8 @@ int main(int argc, char *argv[])
 
 	if (argc != 2)
 	{
-	    fprintf(stderr, "Usage: monty file\n");
-	    return (EXIT_FAILURE);
+		fprintf(stderr, "Usage: monty file\n");
+		return (EXIT_FAILURE);
 	}
 
 	bytecode_path = argv[1];
