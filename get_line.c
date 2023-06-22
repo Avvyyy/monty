@@ -15,7 +15,7 @@ ssize_t custom_getline(char **lineptr, size_t *n, FILE *stream)
 {
 	size_t pos = 0;
 	int ch;
-	char * new_lineptr;
+	char *new_lineptr;
 
 	if (*lineptr == NULL || *n == 0)
 	{
@@ -24,7 +24,7 @@ ssize_t custom_getline(char **lineptr, size_t *n, FILE *stream)
 
 		if (*lineptr == NULL)
 		{
-			return -1;
+			return (-1);
 		}
 	}
 
@@ -37,7 +37,7 @@ ssize_t custom_getline(char **lineptr, size_t *n, FILE *stream)
 
 			if (new_lineptr == NULL)
 			{
-				return -1;
+				return (-1);
 			}
 			*lineptr = new_lineptr;
 		}
@@ -47,12 +47,10 @@ ssize_t custom_getline(char **lineptr, size_t *n, FILE *stream)
 			break;
         	}
 	}
-
 	if (pos == 0)
 	{
-		return -1;
+		return (-1);
 	}
-
 	(*lineptr)[pos] = '\0';
-	return pos;
+	return (pos);
 }
