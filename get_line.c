@@ -3,12 +3,12 @@
 #include "monty.h"
 
 /**
- * custom_getline: Function that reads data from standard input
+ * custom_getline - Function that reads data from standard input
  * @lineptr: Pointer to line to be read`
  * @n: NUmber of bytes
  * @stream: Stream to be read from
  *
- * Return; An integer
+ * Return: An integer
  */
 
 ssize_t custom_getline(char **lineptr, size_t *n, FILE *stream)
@@ -45,7 +45,7 @@ ssize_t custom_getline(char **lineptr, size_t *n, FILE *stream)
 		if (ch == '\n')
 		{
 			break;
-        	}
+		}
 	}
 	if (pos == 0)
 	{
