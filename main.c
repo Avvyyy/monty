@@ -20,6 +20,7 @@ int main(int argc, char *argv[])
 	size_t len = 0;
 	ssize_t read;
 	unsigned int line_number = 0;
+	stack_t **stack = NULL;
 
 	if (argc != 2)
 	{
