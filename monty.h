@@ -37,8 +37,6 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-extern stack_t **stack;
-
 ssize_t custom_getline(char **lineptr, size_t *n, FILE *stream);
 
 void push(stack_t **stack, int value);
