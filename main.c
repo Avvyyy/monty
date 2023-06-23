@@ -13,8 +13,6 @@ stack_t **stack = NULL;
 
 int main(int argc, char *argv[])
 {
-	(void)stack;
-	
 	FILE *bytecode_file;
 	char *bytecode_path;
 	char *line = NULL;
@@ -48,6 +46,8 @@ int main(int argc, char *argv[])
 	free(line);
 	fclose(bytecode_file);
 	free_stack(&stack);
+
+	(void)stack;
 
 	return (EXIT_SUCCESS);
 }
