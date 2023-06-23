@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include "monty.h"
 
+stack_t **stack = NULL;
+
 /**
  * main - Function to imlement the monty bytecode
  * @argc: Argumnent Count
@@ -11,7 +13,7 @@
 
 int main(int argc, char *argv[])
 {
-
+	void (stack);
 	FILE *bytecode_file;
 	char *bytecode_path;
 	char *line = NULL;
