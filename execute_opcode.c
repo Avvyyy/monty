@@ -20,22 +20,22 @@ instruction_t instructions[] = {
 
 void execute_opcode(stack_t **stack, char *opcode, unsigned int line_number, int n)
 {
-    int i = 0;
+	int i = 0;
 
-    while (instructions[i].opcode != NULL)
-    {
-        if (strcmp(opcode, instructions[i].opcode) == 0)
-        {
-            if (instructions[i].f == push)
-                instructions[i].f(stack, n, line_number);
-            else
-                instructions[i].f(stack, line_number);
-            return;
-        }
-        i++;
-    }
+	while (instructions[i].opcode != NULL)
+	{
+		if (strcmp(opcode, instructions[i].opcode) == 0)
+		{
+			if (instructions[i].f == push)
+				instructions[i].f(stack, n, line_number); // Pass n parameter to push function
+			else
+				instructions[i].f(stack, line_number); // Call other functions without passing n
+			return;
+		}
+		i++;
+	}
 
-    fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
-    free_stack(stack);
-    exit(EXIT_FAILURE);
+	fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
+	free_stack(stack);
+	exit(EXIT_FAILURE);
 }
