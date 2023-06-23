@@ -19,6 +19,7 @@ int main(int argc, char *argv[])
 	size_t len = 0;
 	ssize_t read;
 	unsigned int line_number = 0;
+	int n; // Variable to store the integer value for push
 
 	if (argc != 2)
 	{
@@ -40,14 +41,26 @@ int main(int argc, char *argv[])
 		if (line[read - 1] == '\n')
 			line[read - 1] = '\0';
 		if (line[0] != '\0')
-			execute_opcode(stack, line, line_number);
+		{
+			if (strcmp(line, "push") == 0)
+			{
+				if (!is_number(line + 5))
+				{
+					fprintf(stderr, "L%u: usage: push integer\n", line_number);
+					free(line);
+					free_stack(stack);
+					fclose(bytecode_file);
+					return (EXIT_FAILURE);
+				}
+				n = atoi(line + 5);
+			}
+			execute_opcode(stack, line, line_number, n);
+		}
 	}
 
 	free(line);
 	fclose(bytecode_file);
 	free_stack(stack);
-
-	(void)stack;
 
 	return (EXIT_SUCCESS);
 }
