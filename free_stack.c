@@ -3,7 +3,7 @@
 /**
  * free_stack - Frees all nodes in the stack
  */
-void free_stack(void)
+void free_stack(stack_t **stack)
 {
 	stack_t *current = *stack;
 	stack_t *temp;
