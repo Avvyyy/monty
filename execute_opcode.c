@@ -2,6 +2,7 @@
 
 /**
  * execute_opcode - Execute the corresponding opcode function based on input
+ * @stack: Double pointer to the stack
  * @opcode: The opcode to execute
  * @line_number: The current line number in the bytecode file
  */
