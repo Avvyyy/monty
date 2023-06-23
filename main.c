@@ -40,12 +40,12 @@ int main(int argc, char *argv[])
 		if (line[read - 1] == '\n')
 			line[read - 1] = '\0';
 		if (line[0] != '\0')
-			execute_opcode(&stack, line, line_number);
+			execute_opcode(stack, line, line_number);
 	}
 
 	free(line);
 	fclose(bytecode_file);
-	free_stack(&stack);
+	free_stack(stack);
 
 	(void)stack;
 
