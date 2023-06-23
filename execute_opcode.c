@@ -27,9 +27,9 @@ void execute_opcode(stack_t **stack, char *opcode, unsigned int line_number, int
         if (strcmp(opcode, instructions[i].opcode) == 0)
         {
             if (instructions[i].f == push)
-                instructions[i].f(stack, n, line_number); // Pass n parameter to push function
+                instructions[i].f(stack, n, line_number);
             else
-                instructions[i].f(stack, line_number); // Call other functions without passing n
+                instructions[i].f(stack, line_number);
             return;
         }
         i++;
