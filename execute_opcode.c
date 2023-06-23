@@ -1,15 +1,14 @@
 #include "monty.h"
 
-/* Define an array of instructions */
 instruction_t instructions[] = {
-	{"push", push},
-	{"pall", pall},
-	{"pint", pint},
-	{"pop", pop},
-	{"swap", swap},
-	{"add", add},
-	{"nop", nop},
-	{NULL, NULL} /* Last element of the array should be NULL for termination */
+    {"push", push},
+    {"pall", pall},
+    {"pint", pint},
+    {"pop", pop},
+    {"swap", swap},
+    {"add", add},
+    {"nop", nop},
+    {NULL, NULL}
 };
 
 /**
@@ -18,21 +17,25 @@ instruction_t instructions[] = {
  * @line_number: Line number of the instruction
  * @n: The integer value to push
  */
-void push(stack_t **stack, unsigned int line_number, int n)
+
+void execute_opcode(stack_t **stack, char *opcode, unsigned int line_number, int n)
 {
-	stack_t *new_node = malloc(sizeof(stack_t));
-	if (new_node == NULL)
-	{
-		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
-	}
+    int i = 0;
 
-	new_node->n = n;
-	new_node->prev = NULL;
-	new_node->next = *stack;
+    while (instructions[i].opcode != NULL)
+    {
+        if (strcmp(opcode, instructions[i].opcode) == 0)
+        {
+            if (instructions[i].f == push)
+                instructions[i].f(stack, n, line_number); // Pass n parameter to push function
+            else
+                instructions[i].f(stack, line_number); // Call other functions without passing n
+            return;
+        }
+        i++;
+    }
 
-	if (*stack != NULL)
-		(*stack)->prev = new_node;
-
-	*stack = new_node;
+    fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
+    free_stack(stack);
+    exit(EXIT_FAILURE);
 }
