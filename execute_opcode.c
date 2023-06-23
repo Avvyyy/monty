@@ -13,31 +13,26 @@ instruction_t instructions[] = {
 };
 
 /**
- * execute_opcode - Execute the corresponding opcode function based on input
- * @stack: Double pointer to the stack
- * @opcode: The opcode to execute
- * @line_number: The current line number in the bytecode file
- * @n: The integer value (optional parameter for push function)
+ * push - Function to add new data to the top of the stack
+ * @stack: Pointer to top of the stack
+ * @line_number: Line number of the instruction
+ * @n: The integer value to push
  */
-void execute_opcode(stack_t **stack, char *opcode, unsigned int line_number, int n)
+void push(stack_t **stack, unsigned int line_number, int n)
 {
-	int i = 0;
-
-	while (instructions[i].opcode != NULL)
+	stack_t *new_node = malloc(sizeof(stack_t));
+	if (new_node == NULL)
 	{
-		if (strcmp(opcode, instructions[i].opcode) == 0)
-		{
-			if (instructions[i].f == push)
-				instructions[i].f(stack, line_number, n); // Pass n parameter to push function
-			else
-				instructions[i].f(stack, line_number); // Call other functions without passing n
-			return;
-		}
-		i++;
+		fprintf(stderr, "Error: malloc failed\n");
+		exit(EXIT_FAILURE);
 	}
 
-	fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
-	free_stack(stack);
-	exit(EXIT_FAILURE);
-}
+	new_node->n = n;
+	new_node->prev = NULL;
+	new_node->next = *stack;
 
+	if (*stack != NULL)
+		(*stack)->prev = new_node;
+
+	*stack = new_node;
+}
