@@ -48,7 +48,7 @@ void add(stack_t **stack, unsigned int line_number);
 void nop(stack_t **stack, unsigned int line_number);
 
 int is_number(const char *str);
-void free_stack(void);
-void execute_opcode(char *opcode, unsigned int line_number);
+void free_stack(stack_t **stack);
+void execute_opcode(stack_t **stack, char *opcode, unsigned int line_number);
 
 #endif
