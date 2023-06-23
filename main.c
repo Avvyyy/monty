@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
 	size_t len = 0;
 	ssize_t read;
 	unsigned int line_number = 0;
-	int n; // Variable to store the integer value for push
+	int n;
 
 	if (argc != 2)
 	{
