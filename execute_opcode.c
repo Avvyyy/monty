@@ -6,7 +6,7 @@
  * @opcode: The opcode to execute
  * @line_number: The current line number in the bytecode file
  */
-void execute_opcode(stack_t **stack, char *opcode, unsigned int line_number)
+void execute_opcode(stack_t ***stack, char *opcode, unsigned int line_number)
 {
 	if (strcmp(opcode, "push") == 0)
 		push(stack, line_number);
