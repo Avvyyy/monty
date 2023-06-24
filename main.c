@@ -1,66 +1,50 @@
-#include <stdio.h>
+#define _GNU_SOURCE
 #include "monty.h"
-
-stack_t **stack = NULL;
+global_t global;
 
 /**
- * main - Function to imlement the monty bytecode
- * @argc: Argumnent Count
- * @argv; Argumnet Vector
- *
- * Return: Integer represeting exit status
+ * main - entry point of program
+ * @argc: argumemt count
+ * @argv: argument vector
+ * Return: 0 (success)
  */
-
 int main(int argc, char *argv[])
 {
-	FILE *bytecode_file;
-	char *bytecode_path;
-	char *line = NULL;
-	size_t len = 0;
-	ssize_t read;
-	unsigned int line_number = 0;
-	int n;
+	int nbytes = 0;
+	size_t nsize = 0;
+	unsigned int count = 1;
+	stack_t *stack = NULL;
 
+	global.flag = 1;
+	global.content = NULL;
 	if (argc != 2)
 	{
-		fprintf(stderr, "Usage: monty file\n");
-		return (EXIT_FAILURE);
+		fprintf(stderr, "USAGE: monty file\n");
+		exit(EXIT_FAILURE);
 	}
-
-	bytecode_path = argv[1];
-	bytecode_file = fopen(bytecode_path, "r");
-	if (bytecode_file == NULL)
+	global.file = fopen(argv[1], "r");
+	if (global.file == NULL)
 	{
-		fprintf(stderr, "Error: Can't open file %s\n", bytecode_path);
-		return (EXIT_FAILURE);
+		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
+		exit(EXIT_FAILURE);
 	}
-
-	while ((read = custom_getline(&line, &len, bytecode_file)) != -1)
+	while ((nbytes = getline(&global.content, &nsize, global.file)) != EOF)
 	{
-		line_number++;
-		if (line[read - 1] == '\n')
-			line[read - 1] = '\0';
-		if (line[0] != '\0')
+		add_null(global.content);
+		if (global.content[0] != 35)
 		{
-			if (strcmp(line, "push") == 0)
+			global.token = strtok(global.content, " \t\n");
+			global.code = global.token;
+			if (global.code != NULL)
 			{
-				if (!is_number(line + 5))
-				{
-					fprintf(stderr, "L%u: usage: push integer\n", line_number);
-					free(line);
-					free_stack(stack);
-					fclose(bytecode_file);
-					return (EXIT_FAILURE);
-				}
-				n = atoi(line + 5);
+				global.token = strtok(NULL, " \t\n");
+				funct(global.code)(&stack, count);
 			}
-			execute_opcode(stack, line, line_number, n);
+			count++;
 		}
 	}
-
-	free(line);
-	fclose(bytecode_file);
-	free_stack(stack);
-
-	return (EXIT_SUCCESS);
+	free_stack(&stack);
+	free(global.content);
+	fclose(global.file);
+	return (0);
 }
